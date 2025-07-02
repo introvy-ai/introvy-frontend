@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introvy.ai - Bring Your Job Application to Life</title>
+    <title>Introvy - Bring Your Job Application to Life</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
@@ -81,17 +81,25 @@
     <header class="bg-white shadow-sm fixed w-full top-0 z-50">
         <nav class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <div class="flex items-center">
+                <a href="#home" class="flex items-center hover:opacity-80 transition-opacity">
                     <i class="fas fa-video text-2xl gradient-text mr-2"></i>
-                    <span class="text-xl font-bold text-gray-800">Introvy.ai</span>
-                </div>
-                <div class="hidden md:flex space-x-8">
+                    <span class="text-xl font-bold text-gray-800">Introvy</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-6">
                     <a href="#home" class="text-gray-600 hover:text-blue-600 transition">Home</a>
                     <a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition">How It Works</a>
                     <a href="#pricing" class="text-gray-600 hover:text-blue-600 transition">Pricing</a>
                     <a href="#job-wall" class="text-gray-600 hover:text-blue-600 transition">Job Wall</a>
                     <a href="#about" class="text-gray-600 hover:text-blue-600 transition">About</a>
                     <a href="#contact" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
+                    <div id="authButtons" class="space-x-2 ml-4">
+                        <button id="loginBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Login</button>
+                        <button id="signupBtn" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700">Sign Up</button>
+                    </div>
+                    <div id="userMenu" class="hidden space-x-2 ml-4">
+                        <span id="userName" class="text-gray-700 font-medium"></span>
+                        <button id="logoutBtn" class="text-gray-600 hover:text-gray-800">Logout</button>
+                    </div>
                 </div>
                 <div class="md:hidden">
                     <button class="text-gray-600">
@@ -105,7 +113,7 @@
     <!-- Authentication Modal -->
     <div id="authModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white p-8 rounded-lg max-w-md w-full mx-4">
-            <h2 class="text-2xl font-bold mb-6 text-center">Get Started with Introvy.ai</h2>
+            <h2 class="text-2xl font-bold mb-6 text-center">Get Started with Introvy</h2>
             
             <!-- Sign Up Form -->
             <div id="signupForm">
@@ -159,9 +167,14 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
                         <input type="email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your email">
                     </div>
-                    <div class="mb-6">
+                    <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
                         <input type="password" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your password">
+                    </div>
+                    <div class="mb-6 text-center">
+                        <button type="button" onclick="showForgotPassword()" class="text-sm text-blue-600 hover:text-blue-700 underline">
+                            Forgot your password?
+                        </button>
                     </div>
                     <button type="button" onclick="proceedToApp()" class="w-full gradient-bg text-white py-3 rounded-lg font-semibold hover:opacity-90 transition">
                         Sign In & Continue
@@ -451,7 +464,7 @@
     <!-- About -->
     <section id="about" class="py-16 bg-gray-50">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12">About Introvy.ai</h2>
+            <h2 class="text-4xl font-bold text-center mb-12">About Introvy</h2>
             <div class="max-w-4xl mx-auto text-center mb-12">
                 <p class="text-xl text-gray-700 mb-6">
                     We're on a mission to humanize job applications and help both candidates and recruiters make better connections through the power of video.
@@ -462,380 +475,4 @@
                         Traditional job applications are broken. Resumes can't capture personality, passion, or communication skills. We believe every candidate deserves a chance to show who they really are beyond bullet points and keywords.
                     </p>
                     <p class="text-gray-700">
-                        Introvy.ai bridges the gap between candidates and employers by making it easy to create personalized video responses that showcase the human side of job applications.
-                    </p>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-blue-600 mb-2">2024</div>
-                    <div class="text-gray-600">Founded</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-blue-600 mb-2">Chicago</div>
-                    <div class="text-gray-600">Based in Illinois</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-blue-600 mb-2">AI + HR</div>
-                    <div class="text-gray-600">Tech Focus</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="py-16">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-4">Get In Touch</h2>
-            <p class="text-xl text-gray-600 text-center mb-12">Have questions? We'd love to hear from you.</p>
-            <div class="max-w-2xl mx-auto">
-                <div class="bg-white p-8 rounded-lg shadow-md">
-                    <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center">
-                            <i class="fas fa-envelope text-blue-500 mr-3"></i>
-                            <div>
-                                <div class="font-semibold">Email</div>
-                                <div class="text-gray-600"><a href="/cdn-cgi/l/email-protection#630b060f0f0c230a0d17110c151a4d020a" class="hover:text-blue-600"><span class="__cf_email__" data-cfemail="630b060f0f0c230a0d17110c151a4d020a">[email&#160;protected]</span></a></div>
-                            </div>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-map-marker-alt text-blue-500 mr-3"></i>
-                            <div>
-                                <div class="font-semibold">Address</div>
-                                <div class="text-gray-600">Chicago, IL</div>
-                            </div>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-clock text-blue-500 mr-3"></i>
-                            <div>
-                                <div class="font-semibold">Response Time</div>
-                                <div class="text-gray-600">Within 24 hours</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center mb-4">
-                        <i class="fas fa-video text-2xl mr-2"></i>
-                        <span class="text-xl font-bold">Introvy.ai</span>
-                    </div>
-                    <p class="text-gray-400">Bringing job applications to life through personalized video responses.</p>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Product</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#how-it-works" class="hover:text-white transition">How It Works</a></li>
-                        <li><a href="#pricing" class="hover:text-white transition">Pricing</a></li>
-                        <li><a href="#job-wall" class="hover:text-white transition">Job Wall</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Company</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#about" class="hover:text-white transition">About</a></li>
-                        <li><a href="#contact" class="hover:text-white transition">Contact</a></li>
-                        <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Support</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="/cdn-cgi/l/email-protection#cfa7aaa3a3a08fa6a1bbbda0b9b6e1aea6" class="hover:text-white transition">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2024 Introvy.ai. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Job Wall Functionality
-        let allJobs = [];
-        let filteredJobs = [];
-        let currentSkillFilter = 'all';
-        let currentSearchTerm = '';
-        let currentLocationFilter = '';
-
-        // Authentication Functions
-        function openAuthModal(plan = 'free') {
-            document.getElementById('authModal').classList.remove('hidden');
-            if (plan === 'pro') {
-                document.querySelector('input[value="pro"]').checked = true;
-            }
-        }
-
-        function closeAuthModal() {
-            document.getElementById('authModal').classList.add('hidden');
-        }
-
-        function showLogin() {
-            document.getElementById('signupForm').classList.add('hidden');
-            document.getElementById('loginForm').classList.remove('hidden');
-        }
-
-        function showSignup() {
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('signupForm').classList.remove('hidden');
-        }
-
-        function proceedToApp() {
-            // In a real implementation, you'd handle authentication here
-            closeAuthModal();
-            window.location.href = '/apply.html';
-        }
-
-        // Job Search and Filtering
-        function initializeSearch() {
-            const searchInput = document.getElementById('jobSearch');
-            const locationFilter = document.getElementById('locationFilter');
-
-            // Real-time search
-            searchInput.addEventListener('input', function() {
-                currentSearchTerm = this.value.toLowerCase();
-                filterJobs();
-            });
-
-            locationFilter.addEventListener('change', function() {
-                currentLocationFilter = this.value.toLowerCase();
-                filterJobs();
-            });
-
-            // Skill filter chips
-            document.querySelectorAll('.filter-chip').forEach(chip => {
-                chip.addEventListener('click', function() {
-                    // Update active state
-                    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    currentSkillFilter = this.getAttribute('data-skill');
-                    filterJobs();
-                });
-            });
-        }
-
-        function clearFilters() {
-            document.getElementById('jobSearch').value = '';
-            document.getElementById('locationFilter').value = '';
-            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-            document.querySelector('[data-skill="all"]').classList.add('active');
-            
-            currentSearchTerm = '';
-            currentLocationFilter = '';
-            currentSkillFilter = 'all';
-            
-            filterJobs();
-        }
-
-        function filterJobs() {
-            let filtered = [...allJobs];
-
-            // Apply search filter
-            if (currentSearchTerm) {
-                filtered = filtered.filter(job => 
-                    job.job_title.toLowerCase().includes(currentSearchTerm) ||
-                    job.company_name.toLowerCase().includes(currentSearchTerm) ||
-                    (job.location && job.location.toLowerCase().includes(currentSearchTerm)) ||
-                    (job.job_description && job.job_description.toLowerCase().includes(currentSearchTerm))
-                );
-            }
-
-            // Apply location filter
-            if (currentLocationFilter) {
-                filtered = filtered.filter(job => 
-                    job.location && job.location.toLowerCase().includes(currentLocationFilter)
-                );
-            }
-
-            // Apply skill filter
-            if (currentSkillFilter !== 'all') {
-                filtered = filtered.filter(job => 
-                    job.skill_tags && job.skill_tags.includes(currentSkillFilter)
-                );
-            }
-
-            filteredJobs = filtered;
-            displayJobs(filteredJobs);
-            updateResultsCount(filteredJobs.length, allJobs.length);
-        }
-
-        function updateResultsCount(filtered, total) {
-            const resultsCount = document.getElementById('resultsCount');
-            if (total === 0) {
-                resultsCount.innerHTML = '<i class="fas fa-info-circle mr-1"></i>No jobs posted yet';
-            } else if (filtered === total) {
-                resultsCount.innerHTML = `<i class="fas fa-info-circle mr-1"></i>Showing all ${total} job${total !== 1 ? 's' : ''}`;
-            } else {
-                resultsCount.innerHTML = `<i class="fas fa-info-circle mr-1"></i>Showing ${filtered} of ${total} job${total !== 1 ? 's' : ''}`;
-            }
-        }
-
-        // Load jobs from API
-        async function loadJobs() {
-            const loadingElement = document.getElementById('job-loading');
-            const containerElement = document.getElementById('job-wall-container');
-            const noJobsElement = document.getElementById('no-jobs-message');
-            const noResultsElement = document.getElementById('no-results-message');
-            const errorElement = document.getElementById('error-message');
-
-            // Show loading
-            loadingElement.classList.remove('hidden');
-            containerElement.innerHTML = '';
-            noJobsElement.classList.add('hidden');
-            noResultsElement.classList.add('hidden');
-            errorElement.classList.add('hidden');
-
-            try {
-                const response = await fetch('https://introvy-backend.vercel.app/api/jobs/list');
-                const data = await response.json();
-
-                loadingElement.classList.add('hidden');
-
-                if (data.success && data.jobs && data.jobs.length > 0) {
-                    allJobs = data.jobs;
-                    filterJobs(); // This will set filteredJobs and display them
-                } else {
-                    allJobs = [];
-                    filteredJobs = [];
-                    noJobsElement.classList.remove('hidden');
-                    updateResultsCount(0, 0);
-                }
-            } catch (error) {
-                console.error('Error loading jobs:', error);
-                loadingElement.classList.add('hidden');
-                errorElement.classList.remove('hidden');
-                updateResultsCount(0, 0);
-            }
-        }
-
-        // Display jobs
-        function displayJobs(jobs) {
-            const container = document.getElementById('job-wall-container');
-            const noResultsElement = document.getElementById('no-results-message');
-            const noJobsElement = document.getElementById('no-jobs-message');
-            
-            if (allJobs.length === 0) {
-                container.innerHTML = '';
-                noJobsElement.classList.remove('hidden');
-                noResultsElement.classList.add('hidden');
-                return;
-            }
-
-            if (jobs.length === 0) {
-                container.innerHTML = '';
-                noJobsElement.classList.add('hidden');
-                noResultsElement.classList.remove('hidden');
-                return;
-            }
-
-            noJobsElement.classList.add('hidden');
-            noResultsElement.classList.add('hidden');
-
-            container.innerHTML = jobs.map(job => `
-                <div class="job-card bg-white rounded-lg shadow-md overflow-hidden">
-                    <div class="aspect-video bg-gray-100 relative">
-                        ${job.video_file_url && job.video_file_url !== 'placeholder-video-url' ? `
-                            <video controls class="w-full h-full object-cover" playsinline webkit-playsinline>
-                                <source src="${job.video_file_url}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        ` : `
-                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
-                                <div class="text-center">
-                                    <i class="fas fa-video text-4xl text-blue-400 mb-2"></i>
-                                    <p class="text-sm text-gray-600">Video Spotlight</p>
-                                </div>
-                            </div>
-                        `}
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">${job.job_title}</h3>
-                        <p class="text-blue-600 font-semibold mb-1">${job.company_name}</p>
-                        <p class="text-gray-500 mb-3 flex items-center">
-                            <i class="fas fa-map-marker-alt mr-1"></i>
-                            ${job.location || 'Location not specified'}
-                        </p>
-                        
-                        ${job.skill_tags && job.skill_tags.length > 0 ? `
-                            <div class="mb-4">
-                                ${job.skill_tags.slice(0, 3).map(tag => `<span class="skill-tag">${tag}</span>`).join('')}
-                                ${job.skill_tags.length > 3 ? `<span class="skill-tag">+${job.skill_tags.length - 3} more</span>` : ''}
-                            </div>
-                        ` : ''}
-                        
-                        ${job.job_description ? `
-                            <p class="text-gray-600 mb-4 text-sm leading-relaxed">${job.job_description.length > 120 ? job.job_description.substring(0, 120) + '...' : job.job_description}</p>
-                        ` : ''}
-                        
-                        <div class="flex justify-between items-center pt-4 border-t border-gray-100">
-                            ${job.job_url ? `
-                                <a href="${job.job_url}" target="_blank" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition text-sm font-semibold">
-                                    <i class="fas fa-external-link-alt mr-1"></i>Apply Now
-                                </a>
-                            ` : `
-                                <span class="text-gray-400 text-sm">No direct application link</span>
-                            `}
-                            <span class="text-xs text-gray-400">
-                                <i class="fas fa-clock mr-1"></i>
-                                ${new Date(job.created_at).toLocaleDateString()}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Initialize everything when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize search functionality
-            initializeSearch();
-            
-            // Load jobs on page load
-            loadJobs();
-
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-
-            // Close modal when clicking outside
-            document.getElementById('authModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeAuthModal();
-                }
-            });
-        });
-    </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"9589a45d7e7b2316","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
-</body>
-</html>
-    <script id="html_badge_script1">
-        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDq0ullEsBzcyt7g7NawCea%2BRWNNMMkRH2uYQs0JWzfOi1EYwD1zuFUWx1SdVu0REepy0mxT%2BuV6swmsl35qh1YDqwXSXBqNi9f99jovqSFfOhsSNGtF3X9HafEkfzEO5VfLY7OzkQEGRFsrI0UVwKdty0dzWkEzB85DgvodWmHcEN7onvPd2ANU7AAHCnJw%2BHrAYwOCYxiOnUv%2FP0MQxtNuMNQGpdFEolCXMS67AZNbaj5mN0wCbvN02Z6u7GmIbrzjn0Zjv7PGprpyqsdcStFGS4FJUVQ%2Bw1ca43qr34yqNGm67LVwC5rPLhzhoL2zxV8NeavVhVvGNTKxu1ECJDoLpmFD2ipFH9q5RV%2B44RSv51%2Bna0MnSzNHcwnTGLy2JJDN0jzd4E2mRzIsqxKt%2BmybrWRlj9isKU%2BlPYWh9K56bO1IBIA3uZuZmtdDO4%2B9YTstWhnYhaL3CBmVLrPKVyVNynNh7Eh%2BEp9xwd%2BgwCJjyyRUTXExLQ8%2FansI78P%2BD9w%3D%3D";
-        window.__genspark_locale = "en-US";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDq0ullEsBzcyt7g7NawCea+RWNNMMkRH2uYQs0JWzfOi1EYwD1zuFUWx1SdVu0REepy0mxT+uV6swmsl35qh1YDqwXSXBqNi9f99jovqSFfOhsSNGtF3X9HafEkfzEO5VfLY7OzkQEGRFsrI0UVwKdty0dzWkEzB85DgvodWmHcEN7onvPd2ANU7AAHCnJw+HrAYwOCYxiOnUv/P0MQxtNuMNQGpdFEolCXMS67AZNbaj5mN0wCbvN02Z6u7GmIbrzjn0Zjv7PGprpyqsdcStFGS4FJUVQ+w1ca43qr34yqNGm67LVwC5rPLhzhoL2zxV8NeavVhVvGNTKxu1ECJDoLpmFD2ipFH9q5RV+44RSv51+na0MnSzNHcwnTGLy2JJDN0jzd4E2mRzIsqxKt+mybrWRlj9isKU+lPYWh9K56bO1IBIA3uZuZmtdDO4+9YTstWhnYhaL3CBmVLrPKVyVNynNh7Eh+Ep9xwd+gwCJjyyRUTXExLQ8/ansI78P+D9w==";
-    </script>
-    
-    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
-    
+                        Introvy bridges the gap between candidates and employers by making it easy to create personalized video responses that showcase the human side of job applications
