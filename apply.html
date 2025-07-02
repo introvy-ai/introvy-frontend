@@ -1477,3 +1477,13 @@ document.getElementById('registerForm').addEventListener('submit', async functio
 </body>
 </html>
 
+function showForgotPassword() {
+    const email = document.getElementById('loginEmail').value;
+    if (!email) {
+        alert('Please enter your email address first, then click "Forgot your password?"');
+        return;
+    }
+    
+    // Simple forgot password - just show contact info
+    alert(`Password reset: Please email hello@introvy.ai with your registered email address (${email}) to reset your password. We'll get back to you within 24 hours.`);
+}
