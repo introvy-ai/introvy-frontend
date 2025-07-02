@@ -1392,4 +1392,50 @@
             setTimeout(() => {
                 button.innerHTML = originalContent;
                 button.classList.remove('bg-green-600');
-                button.classList.add('bg
+                        button.classList.add('bg-blue-600', 'hover:bg-blue-700');
+            }, 2000);
+        }
+
+        function viewSubmission() {
+            if (window.currentSubmissionUrl) {
+                window.open(window.currentSubmissionUrl, '_blank');
+            }
+        }
+
+        function startNewApplication() {
+            location.reload();
+        }
+
+        // Utility functions
+        function showLoading(text) {
+            document.getElementById('loadingText').textContent = text;
+            document.getElementById('loadingModal').classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingModal').classList.add('hidden');
+        }
+
+        // Close modals when clicking outside
+        document.addEventListener('click', function(event) {
+            const modals = ['loginModal', 'registerModal', 'proUpgradeModal'];
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    modal.classList.remove('show');
+                }
+            });
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.getElementById('loginModal').classList.remove('show');
+                document.getElementById('registerModal').classList.remove('show');
+                document.getElementById('proUpgradeModal').classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
+
