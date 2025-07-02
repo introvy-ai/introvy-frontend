@@ -436,27 +436,32 @@
         </div>
     </div>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <h3 class="text-lg font-bold mb-4">Log In to Introvy.ai</h3>
-            <form id="loginForm">
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                    <input type="email" id="loginEmail" required class="w-full p-3 border border-gray-300 rounded-lg">
-                </div>
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                    <input type="password" id="loginPassword" required class="w-full p-3 border border-gray-300 rounded-lg">
-                </div>
-                <div class="flex justify-between">
-                    <button type="button" onclick="hideLoginModal()" class="text-gray-600 hover:text-gray-800">Cancel</button>
-                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Log In</button>
-                </div>
-            </form>
-            <div id="loginError" class="mt-4 text-red-600 text-sm hidden"></div>
-        </div>
+   <!-- Update your login modal to include this -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h3 class="text-lg font-bold mb-4">Log In to Introvy.ai</h3>
+        <form id="loginForm">
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <input type="email" id="loginEmail" required class="w-full p-3 border border-gray-300 rounded-lg">
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                <input type="password" id="loginPassword" required class="w-full p-3 border border-gray-300 rounded-lg">
+            </div>
+            <div class="mb-6 text-center">
+                <button type="button" onclick="showForgotPassword()" class="text-sm text-blue-600 hover:text-blue-700">
+                    Forgot your password?
+                </button>
+            </div>
+            <div class="flex justify-between">
+                <button type="button" onclick="hideLoginModal()" class="text-gray-600 hover:text-gray-800">Cancel</button>
+                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Log In</button>
+            </div>
+        </form>
+        <div id="loginError" class="mt-4 text-red-600 text-sm hidden"></div>
     </div>
+</div>
 
     <!-- Register Modal -->
     <div id="registerModal" class="modal">
