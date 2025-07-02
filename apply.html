@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Your Video Application - Introvy.ai</title>
+    <title>Create Your Video Application - Introvy</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 </head>
@@ -12,10 +12,11 @@
     <header class="bg-white shadow-sm">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <div class="flex items-center">
+                <!-- Clickable Logo -->
+                <a href="/" class="flex items-center hover:opacity-80 transition-opacity">
                     <i class="fas fa-video text-2xl text-blue-600 mr-2"></i>
-                    <span class="text-xl font-bold text-gray-800">Introvy.ai</span>
-                </div>
+                    <span class="text-xl font-bold text-gray-800">Introvy</span>
+                </a>
                 <div class="flex items-center space-x-4">
                     <span id="planBadge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
                         <i class="fas fa-user mr-1"></i>Free Plan
@@ -116,6 +117,12 @@
                     <div id="questionsContainer" class="space-y-4">
                         <!-- Questions will appear here -->
                     </div>
+                    <div class="mt-6 text-center">
+                        <p class="text-green-600 font-medium">
+                            <i class="fas fa-check mr-2"></i>
+                            Questions generated successfully! You can now proceed to record your video responses.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -124,10 +131,18 @@
     <!-- Simple Login Modal -->
     <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
         <div class="bg-white p-8 rounded-lg w-96">
-            <h3 class="text-xl font-bold mb-4">Log In</h3>
+            <h3 class="text-xl font-bold mb-4">Log In to Introvy</h3>
             <div class="space-y-4">
                 <input type="email" id="loginEmail" placeholder="Email" class="w-full p-3 border rounded-lg">
                 <input type="password" id="loginPassword" placeholder="Password" class="w-full p-3 border rounded-lg">
+                
+                <!-- Forgot Password Link -->
+                <div class="text-center">
+                    <button type="button" id="forgotPasswordBtn" class="text-sm text-blue-600 hover:text-blue-700 underline">
+                        Forgot your password?
+                    </button>
+                </div>
+                
                 <div id="loginError" class="text-red-600 text-sm hidden"></div>
                 <div class="flex space-x-4">
                     <button id="loginCancelBtn" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg">Cancel</button>
@@ -140,7 +155,7 @@
     <!-- Simple Signup Modal -->
     <div id="signupModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
         <div class="bg-white p-8 rounded-lg w-96">
-            <h3 class="text-xl font-bold mb-4">Create Account</h3>
+            <h3 class="text-xl font-bold mb-4">Create Your Introvy Account</h3>
             <div class="space-y-4">
                 <input type="text" id="signupName" placeholder="Full Name" class="w-full p-3 border rounded-lg">
                 <input type="email" id="signupEmail" placeholder="Email" class="w-full p-3 border rounded-lg">
@@ -200,6 +215,7 @@
             document.getElementById('authLoginBtn').addEventListener('click', openLoginModal);
             document.getElementById('loginCancelBtn').addEventListener('click', closeLoginModal);
             document.getElementById('loginSubmitBtn').addEventListener('click', processLogin);
+            document.getElementById('forgotPasswordBtn').addEventListener('click', showForgotPassword);
 
             // Signup buttons
             document.getElementById('signupBtn').addEventListener('click', openSignupModal);
@@ -212,6 +228,15 @@
 
             // Generate questions button
             document.getElementById('generateBtn').addEventListener('click', generateQuestions);
+
+            // Enter key support
+            document.getElementById('loginPassword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') processLogin();
+            });
+            
+            document.getElementById('signupPassword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') processSignup();
+            });
 
             console.log('Event listeners added');
         }
@@ -241,6 +266,15 @@
             document.getElementById('signupName').value = '';
             document.getElementById('signupEmail').value = '';
             document.getElementById('signupPassword').value = '';
+        }
+
+        function showForgotPassword() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const message = email 
+                ? `To reset your password, please email hello@introvy.ai with your registered email address (${email}). We'll send you reset instructions within 24 hours.`
+                : 'To reset your password, please email hello@introvy.ai with your registered email address. We\'ll send you reset instructions within 24 hours.';
+            
+            alert(message);
         }
 
         async function processLogin() {
@@ -317,7 +351,7 @@
 
                 if (data.success) {
                     closeSignupModal();
-                    alert('Account created! Logging you in...');
+                    alert('Account created successfully! Logging you in...');
                     
                     // Auto-login
                     document.getElementById('loginEmail').value = email;
@@ -339,6 +373,11 @@
             authToken = null;
             currentUser = null;
             userPlan = 'free';
+            
+            // Clear form
+            document.querySelectorAll('input, textarea').forEach(input => {
+                if (input.type !== 'radio') input.value = '';
+            });
             
             showAuthRequired();
         }
@@ -424,9 +463,10 @@
         function displayQuestions(questions) {
             const container = document.getElementById('questionsContainer');
             container.innerHTML = questions.map((q, index) => `
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <div class="font-medium">Question ${index + 1}</div>
-                    <div class="mt-2">${q.question}</div>
+                <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-500">
+                    <div class="font-medium text-blue-800 mb-2">Question ${index + 1}</div>
+                    <div class="text-gray-800">${q.question}</div>
+                    <div class="text-sm text-gray-600 mt-2">Category: ${q.category || 'General'}</div>
                 </div>
             `).join('');
             
