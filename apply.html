@@ -63,8 +63,7 @@
             font-weight: 500;
         }
         .difficulty-easy { background: #dcfce7; color: #166534; }
-        .difficulty-medium { background: #fef3c7; color: #92400e; }
-        .difficulty-hard { background: #fecaca; color: #991b1b; }
+        .difficulty-challenging { background: #fecaca; color: #991b1b; }
         .regeneration-counter {
             background: #f3f4f6;
             border: 1px solid #d1d5db;
@@ -82,6 +81,12 @@
         }
         .plan-free { background: #f3f4f6; color: #374151; }
         .plan-pro { background: #ddd6fe; color: #5b21b6; }
+        
+        /* Fix for radio button selection */
+        input[type="radio"]:checked + label {
+            border-color: #3b82f6 !important;
+            background-color: #eff6ff !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -155,40 +160,28 @@
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Question Difficulty</label>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="relative">
                                     <input type="radio" id="difficultyEasy" name="difficulty" value="easy" class="sr-only" checked>
                                     <label for="difficultyEasy" class="block p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition">
                                         <div class="flex items-center justify-between">
                                             <div>
                                                 <div class="font-medium">Easy</div>
-                                                <div class="text-sm text-gray-600">Basic questions</div>
+                                                <div class="text-sm text-gray-600">Basic questions about candidate background and the job description</div>
                                             </div>
                                             <span class="difficulty-badge difficulty-easy">Free</span>
                                         </div>
                                     </label>
                                 </div>
                                 <div class="relative">
-                                    <input type="radio" id="difficultyMedium" name="difficulty" value="medium" class="sr-only">
-                                    <label for="difficultyMedium" class="block p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition">
+                                    <input type="radio" id="difficultyChallenging" name="difficulty" value="challenging" class="sr-only">
+                                    <label for="difficultyChallenging" class="block p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition">
                                         <div class="flex items-center justify-between">
                                             <div>
-                                                <div class="font-medium">Medium</div>
-                                                <div class="text-sm text-gray-600">Balanced questions</div>
+                                                <div class="font-medium">Challenging</div>
+                                                <div class="text-sm text-gray-600">Harder, more in-depth questions that help candidates stand out more</div>
                                             </div>
-                                            <span class="difficulty-badge difficulty-medium">Free</span>
-                                        </div>
-                                    </label>
-                                </div>
-                                <div class="relative">
-                                    <input type="radio" id="difficultyHard" name="difficulty" value="hard" class="sr-only">
-                                    <label for="difficultyHard" class="block p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <div class="font-medium">Hard</div>
-                                                <div class="text-sm text-gray-600">Advanced questions</div>
-                                            </div>
-                                            <span class="difficulty-badge difficulty-hard">Pro Only</span>
+                                            <span class="difficulty-badge difficulty-challenging">Pro Plan</span>
                                         </div>
                                     </label>
                                 </div>
@@ -245,7 +238,7 @@
                                     <div class="text-sm text-gray-600">Question <span id="currentQuestionNumber">1</span> of <span id="totalQuestions">3</span></div>
                                     <h3 id="currentQuestionText" class="text-lg font-medium mt-1">Question will appear here</h3>
                                 </div>
-                                <span id="currentQuestionDifficulty" class="difficulty-badge difficulty-medium">Medium</span>
+                                <span id="currentQuestionDifficulty" class="difficulty-badge difficulty-easy">Easy</span>
                             </div>
                             
                             <div class="video-container mb-4">
@@ -412,10 +405,45 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             updateStepIndicators();
+            initializeDifficultySelection();
         });
+
+        function initializeDifficultySelection() {
+            // Add click handlers for difficulty selection
+            document.querySelectorAll('input[name="difficulty"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    updateDifficultySelection();
+                });
+            });
+            
+            // Set initial selection
+            updateDifficultySelection();
+        }
+
+        function updateDifficultySelection() {
+            document.querySelectorAll('label[for^="difficulty"]').forEach(label => {
+                label.classList.remove('border-blue-500', 'bg-blue-50');
+                label.classList.add('border-gray-300');
+            });
+            
+            const selectedRadio = document.querySelector('input[name="difficulty"]:checked');
+            if (selectedRadio) {
+                const selectedLabel = document.querySelector(`label[for="${selectedRadio.id}"]`);
+                selectedLabel.classList.remove('border-gray-300');
+                selectedLabel.classList.add('border-blue-500', 'bg-blue-50');
+            }
+        }
 
         // Step navigation
         function goToStep(step) {
+            if (step === 'Success') {
+                document.querySelectorAll('.step-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                document.getElementById('stepSuccess').classList.remove('hidden');
+                return;
+            }
+
             currentStep = step;
             document.querySelectorAll('.step-content').forEach(content => {
                 content.classList.add('hidden');
@@ -461,9 +489,9 @@
                 return;
             }
 
-            // Check if hard difficulty is allowed for free users
-            if (userPlan === 'free' && difficulty === 'hard') {
-                alert('Hard difficulty questions are only available for Pro users. Please upgrade to access advanced features.');
+            // Check if challenging difficulty is allowed for free users
+            if (userPlan === 'free' && difficulty === 'challenging') {
+                alert('Challenging questions are only available for Pro users. Please upgrade to access advanced features.');
                 return;
             }
 
@@ -558,9 +586,9 @@
                         <div class="flex-1">
                             <div class="text-sm text-gray-600 mb-1">Question ${index + 1}</div>
                             <h4 class="font-medium">${q.question}</h4>
-                            <div class="text-sm text-gray-500 mt-1">Category: ${q.category}</div>
+                            <div class="text-sm text-gray-500 mt-1">Category: ${q.category || 'General'}</div>
                         </div>
-                        <span class="difficulty-badge difficulty-${q.difficulty}">${q.difficulty}</span>
+                        <span class="difficulty-badge difficulty-${q.difficulty === 'challenging' ? 'challenging' : 'easy'}">${q.difficulty === 'challenging' ? 'Challenging' : 'Easy'}</span>
                     </div>
                 </div>
             `).join('');
@@ -590,37 +618,7 @@
             document.getElementById('currentQuestionNumber').textContent = currentQuestionIndex + 1;
             document.getElementById('totalQuestions').textContent = questions.length;
             document.getElementById('currentQuestionText').textContent = question.question;
-            document.getElementById('currentQuestionDifficulty').className = `difficulty-badge difficulty-${question.difficulty}`;
-            document.getElementById('currentQuestionDifficulty').textContent = question.difficulty;
-
-            // Reset video UI
-            const placeholder = document.getElementById('videoPlaceholder');
-            const preview = document.getElementById('videoPreview');
-            placeholder.style.display = 'flex';
-            preview.style.display = 'none';
-
-            // Reset buttons
-            document.getElementById('startRecordingBtn').disabled = false;
-            document.getElementById('stopRecordingBtn').disabled = true;
-            document.getElementById('retakeBtn').classList.add('hidden');
-            document.getElementById('nextQuestionBtn').classList.add('hidden');
-            document.getElementById('finishRecordingBtn').classList.add('hidden');
-        }
-
-        async function startRecording() {
-            try {
-                recordingStream = await navigator.mediaDevices.getUserMedia({ 
-                    video: true, 
-                    audio: {
-                        echoCancellation: true,
-                        noiseSuppression: true,
-                        autoGainControl: true
-                    }
-                });
-
-                const preview = document.getElementById('videoPreview');
-                const placeholder = document.getElementById('videoPlaceholder');
-                const indicator = document.getElementById('recordingIndicator');
-
-                preview.srcObject = recordingStream;
-                preview.
+            
+            const difficultyClass = question.difficulty === 'challenging' ? 'difficulty-challenging' : 'difficulty-easy';
+            const difficultyText = question.difficulty === 'challenging' ? 'Challenging' : 'Easy';
+            document.getElementById('currentQuestionDifficulty
